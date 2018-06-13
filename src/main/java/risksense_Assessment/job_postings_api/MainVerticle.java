@@ -1,5 +1,8 @@
 package risksense_Assessment.job_postings_api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpServerResponse;
@@ -7,19 +10,36 @@ import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
+import io.vertx.kafka.client.producer.KafkaProducer;
+import io.vertx.kafka.client.producer.KafkaProducerRecord;
 
 public class MainVerticle extends AbstractVerticle {
-		
+	
+	
+public void pushKafka(JobEntity jobEntity){
+	Map<String, String> config = new HashMap<>();
+	  config.put("bootstrap.servers", "localhost:9092");
+	  config.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+	  config.put("value.serializer", "io.vertx.blog.my_first_app.JobEntitySerializer");
+	  config.put("acks", "1");
 
-	private void addOne(RoutingContext routingContext) {
-		  final JobEntity jobEntity = Json.decodeValue(routingContext.getBodyAsString(), JobEntity.class);
-	      routingContext.response()
-		      .setStatusCode(201)
-		      .putHeader("content-type", "application/json; charset=utf-8")
-		      .end(Json.encodePrettily(jobEntity));
+	  KafkaProducer<String, JobEntity> producer = KafkaProducer.create(vertx, config);
+	  KafkaProducerRecord<String, JobEntity> record = KafkaProducerRecord.create("job_postings_1135pm", jobEntity);
+	  producer.write(record);
+}
 
-	      System.out.println("posted");
-		}
+
+
+private void addOne(RoutingContext routingContext) {
+	  final JobEntity jobEntity = Json.decodeValue(routingContext.getBodyAsString(), JobEntity.class);
+	  pushKafka(jobEntity);
+      routingContext.response()
+	      .setStatusCode(201)
+	      .putHeader("content-type", "application/json; charset=utf-8")
+	      .end(Json.encodePrettily(jobEntity));
+
+      System.out.println("pushed");
+	}
 	
 
 	
