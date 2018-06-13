@@ -1,0 +1,5 @@
+risksense_Assessment\job_postings_api\App.class
+risksense_Assessment\job_postings_api\JobEntity.class
+risksense_Assessment\job_postings_api\JobEntityDeserializer.class
+risksense_Assessment\job_postings_api\JobEntitySerializer.class
+risksense_Assessment\job_postings_api\MainVerticle.class
