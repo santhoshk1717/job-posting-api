@@ -54,7 +54,7 @@ public class MainVerticle extends AbstractVerticle {
 	    		e.printStackTrace();
 	    		return;
 	    	}
-      Connection connection = DriverManager.getConnection("jdbc:mysql://santhosh.crzbyoydhnfc.us-east-2.rds.amazonaws.com:3306/JobPostings?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=CST","root", "password");		
+      Connection connection = DriverManager.getConnection("jdbc:mysql://santhosh.crzbyoydhnfc.us-east-2.rds.amazonaws.com:3306/JobPostings?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=CST","root", "");		
       
       String keyword = routingContext.request().getParam("keyword");
       String query = "SELECT * FROM postings WHERE MATCH (role,compensation,location,description,reply_rate,skills,availability) AGAINST ('"+keyword+"' IN NATURAL LANGUAGE MODE);";  

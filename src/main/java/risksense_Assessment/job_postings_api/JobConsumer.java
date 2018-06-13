@@ -58,7 +58,7 @@ public class JobConsumer {
     		e.printStackTrace();
     		return;
     	}
-    	Connection connection = DriverManager.getConnection("jdbc:mysql://santhosh.crzbyoydhnfc.us-east-2.rds.amazonaws.com:3306/JobPostings?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=CST","root", "password");		
+    	Connection connection = DriverManager.getConnection("jdbc:mysql://santhosh.crzbyoydhnfc.us-east-2.rds.amazonaws.com:3306/JobPostings?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=CST","root", "");		
         executeConsumer(connection);
         connection.close();
     }
