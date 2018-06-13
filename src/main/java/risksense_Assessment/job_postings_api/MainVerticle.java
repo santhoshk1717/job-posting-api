@@ -24,7 +24,7 @@ public void pushKafka(JobEntity jobEntity){
 	  config.put("acks", "1");
 
 	  KafkaProducer<String, JobEntity> producer = KafkaProducer.create(vertx, config);
-	  KafkaProducerRecord<String, JobEntity> record = KafkaProducerRecord.create("job_postings_1135pm", jobEntity);
+	  KafkaProducerRecord<String, JobEntity> record = KafkaProducerRecord.create("job_postings_1110am", jobEntity);
 	  producer.write(record);
 }
 
